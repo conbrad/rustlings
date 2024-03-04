@@ -7,22 +7,27 @@
 // Execute `rustlings hint errors3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+// I AM DONE
 
 use std::num::ParseIntError;
 
-fn main() {
+fn main() -> Result<(), String> {
     let mut tokens = 100;
     let pretend_user_input = "8";
 
-    let cost = total_cost(pretend_user_input)?;
-
-    if cost > tokens {
-        println!("You can't afford that many!");
-    } else {
-        tokens -= cost;
-        println!("You now have {} tokens.", tokens);
+    match total_cost(pretend_user_input) {
+        ParseIntError => Ok(println!("no")),
+        Ok(cost) => {
+            if cost > tokens {
+                Ok(println!("no"))
+            } else {
+                tokens -= cost;
+                Ok(println!("yes"))
+            }
+        }
     }
+
+
 }
 
 pub fn total_cost(item_quantity: &str) -> Result<i32, ParseIntError> {
